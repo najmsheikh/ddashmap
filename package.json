@@ -1,0 +1,15 @@
+{
+  "name": "ddashmap",
+  "version": "0.0.1",
+  "description": "View DoorDash supported stores on a map",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Najm Sheikh <hello@najmsheikh.me>",
+  "license": "ISC",
+  "dependencies": {
+    "mapbox-gl": "^0.54.0",
+    "npm": "^6.9.0"
+  }
+}
