@@ -4,12 +4,16 @@
   "description": "View DoorDash supported stores on a map",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "live": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "Najm Sheikh <hello@najmsheikh.me>",
   "license": "ISC",
   "dependencies": {
-    "mapbox-gl": "^0.54.0",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.0",
     "npm": "^6.9.0"
   }
 }
