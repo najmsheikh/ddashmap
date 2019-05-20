@@ -7,20 +7,22 @@ const PORT = process.env.PORT || 5000
 app.use(express.static('public'))
 
 /**
- * Retrieve a list of stores for a specific city
+ * Retrieve a GeoJSON list of stores for a specific area
  *
- * @param city
- * @param limit
+ * @param lat       latitude
+ * @param lng       longitude
+ * @param limit     listing limit
  */
-app.get('/cityStores', (req, res) => {
+app.get('/stores', (req, res) => {
 
-	const city_slug = req.query.city || 'new-york-city-ny'
+	const latitude = req.query.lat || 40.78
+	const longitude = req.query.lng || -73.97
 	const limit = req.query.limit || 50
 
-	axios.get(`https://api.doordash.com/v2/seo_city_stores/?delivery_city_slug=${city_slug}-restaurants&store_only=true&limit=${limit}`)
+	axios.get(`https://api.doordash.com/v2/store_search/?offset=0&lat=${latitude}&lng=${longitude}&limit=${limit}`)
 		.then(async response => {
 
-			const storePromises = response.data.store_data.map(async store => {
+			const storePromises = response.data.stores.map(async store => {
 				const response = await axios.get(`https://api.doordash.com/v1/stores/${store.id}/?fields=cover_img_url,address`)
 
 				return {
@@ -40,7 +42,10 @@ app.get('/cityStores', (req, res) => {
 		})
 		.then(stores => _convertToGeoJson(stores))
 		.then(geoJson => res.send(geoJson))
-		.catch(err => console.error(err))
+		.catch(err => {
+			console.error(err)
+			res.sendStatus(500)
+		})
 })
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`))
