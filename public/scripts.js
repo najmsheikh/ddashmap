@@ -53,3 +53,12 @@ $(() => {
 	}
 
 })
+
+$(document).on({
+	ajaxStart: function () {
+		$('.loading').show()
+	},
+	ajaxStop: function () {
+		$('.loading').hide()
+	}
+});
