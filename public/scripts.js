@@ -30,7 +30,7 @@ $(() => {
 
 				const el = document.createElement('img')
 				el.className = 'marker'
-				el.src = 'https://img.icons8.com/color/48/000000/marker.png'
+				el.src = 'marker.png'
 				el.style.height = '20px';
 
 				const url = 'https://www.doordash.com' + store.url
