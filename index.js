@@ -23,13 +23,14 @@ app.get('/stores', (req, res) => {
 		.then(async response => {
 
 			const storePromises = response.data.stores.map(async store => {
-				const response = await axios.get(`https://api.doordash.com/v1/stores/${store.id}/?fields=cover_img_url,address`)
+				const response = await axios.get(`https://api.doordash.com/v1/stores/${store.id}/?fields=cover_img_url,address,offers_pickup`)
 
 				return {
 					id: store.id,
 					name: store.name,
 					img: response.data.cover_img_url,
 					url: store.url,
+					has_pickup: response.data.offers_pickup != null && response.data.offers_pickup,
 					avg_rating: store.average_rating,
 					num_rating: store.num_ratings,
 					address: response.data.address.printable_address,
